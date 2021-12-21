@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.event.EventListener;
@@ -16,13 +17,14 @@ import org.springframework.core.env.Environment;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-public class JmixAddonsDemoR2Application {
+@ConfigurationPropertiesScan
+public class JmixAddonsDemoApplication {
 
     @Autowired
     private Environment environment;
 
     public static void main(String[] args) {
-        SpringApplication.run(JmixAddonsDemoR2Application.class, args);
+        SpringApplication.run(JmixAddonsDemoApplication.class, args);
     }
 
     @Bean
@@ -41,7 +43,7 @@ public class JmixAddonsDemoR2Application {
 
     @EventListener
     public void printApplicationUrl(ApplicationStartedEvent event) {
-        LoggerFactory.getLogger(JmixAddonsDemoR2Application.class).info("Application started at "
+        LoggerFactory.getLogger(JmixAddonsDemoApplication.class).info("Application started at "
                 + "http://localhost:"
                 + environment.getProperty("local.server.port")
                 + Strings.nullToEmpty(environment.getProperty("server.servlet.context-path")));

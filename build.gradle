@@ -37,12 +37,16 @@ dependencies {
     implementation 'io.jmix.security:jmix-security-ui-starter'
     implementation 'io.jmix.security:jmix-security-data-starter'
     implementation 'io.jmix.localfs:jmix-localfs-starter'
+    implementation 'io.jmix.email:jmix-email-starter'
+    implementation 'io.jmix.email:jmix-email-ui-starter'
     implementation 'io.jmix.bpm:jmix-bpm-starter'
     implementation 'io.jmix.bpm:jmix-bpm-ui-starter'
     implementation 'io.jmix.notifications:jmix-notifications-starter'
     implementation 'io.jmix.notifications:jmix-notifications-ui-starter'
     implementation 'io.jmix.businesscalendar:jmix-businesscalendar-starter'
     implementation 'io.jmix.businesscalendar:jmix-businesscalendar-ui-starter'
+
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
