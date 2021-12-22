@@ -60,3 +60,15 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+bootBuildImage {
+    if (rootProject.hasProperty('jmixDockerTag')) {
+        imageName = rootProject['jmixDockerTag']
+    } else {
+        imageName = 'docker.haulmont.com/platform/infrastructure/demo-cuba-apps-docker/demo-r2/jmix-addons-demo-r2:testing'
+    }
+    environment = [
+            "BPE_DELIM_JAVA_TOOL_OPTIONS" : " ",
+            "BPE_APPEND_JAVA_TOOL_OPTIONS" : "-Duser.country=RU -Duser.language=ru"
+    ]
+}

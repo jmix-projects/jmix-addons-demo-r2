@@ -1,0 +1,37 @@
+version: '3'
+
+networks:
+  jmix-addons-demo-r2-net:
+    driver: bridge
+
+services:
+  jmix-addons-demo-r2-postgres-12:
+    container_name: jmix-addons-demo-r2-postgres-12
+    image: postgres:12
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${DB1_PASSWORD}
+      POSTGRES_USER: ${DB1_USERNAME}
+      POSTGRES_DB: ${DB1_NAME}
+    networks:
+      - jmix-addons-demo-r2-net
+
+  jmix-addons-demo-r2-app:
+    container_name: jmix-addons-demo-r2-app
+    image: docker.haulmont.com/platform/infrastructure/demo-cuba-apps-docker/demo-r2/jmix-addons-demo-r2:testing
+    restart: unless-stopped
+    environment:
+      RDS_HOSTNAME: jmix-addons-demo-r2-postgres-12
+      RDS_PASSWORD: ${DB1_PASSWORD}
+      RDS_USERNAME: ${DB1_USERNAME}
+      RDS_DB_NAME: ${DB1_NAME}
+      RDS_PORT: 5432
+      JMIX_ADMIN: ${JMIX_ADMIN}
+      JMIX_PASSWORD: ${JMIX_PASSWORD}
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - 8081:8080
+    networks:
+      - jmix-addons-demo-r2-net
+    depends_on:
+      - jmix-addons-demo-r2-postgres-12
