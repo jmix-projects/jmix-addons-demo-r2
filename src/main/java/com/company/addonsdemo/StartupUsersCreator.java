@@ -7,12 +7,14 @@ import io.jmix.bpmui.security.role.BpmAdminRole;
 import io.jmix.bpmui.security.role.BpmProcessActorRole;
 import io.jmix.core.SaveContext;
 import io.jmix.core.UnconstrainedDataManager;
+import io.jmix.core.entity.EntityValues;
 import io.jmix.core.querycondition.PropertyCondition;
 import io.jmix.core.security.SystemAuthenticator;
 import io.jmix.security.role.assignment.RoleAssignmentRoleType;
 import io.jmix.securitydata.entity.RoleAssignmentEntity;
 import io.jmix.securityui.role.UiFilterRole;
 import io.jmix.securityui.role.UiMinimalRole;
+import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Component
@@ -55,7 +59,7 @@ public class StartupUsersCreator {
 
             createUser("bpmadmin",
                     addonsDemoProperties.getPassword(),
-                    Sets.newHashSet(UiMinimalRole.CODE, UiFilterRole.CODE, BpmAdminRole.CODE));
+                    Sets.newHashSet(FullAccessRole.CODE, BpmAdminRole.CODE));
 
             createUser("bpmuser",
                     addonsDemoProperties.getPassword(),
@@ -65,19 +69,34 @@ public class StartupUsersCreator {
                     addonsDemoProperties.getPassword(),
                     Sets.newHashSet(UiMinimalRole.CODE, UiFilterRole.CODE, BpmProcessActorRole.CODE));
 
+
+            Map<String, Object> attributes = new HashMap<>();
+            attributes.put("firstName", "first");
+            attributes.put("email", "first@gmail.com");
+
             createUser("first",
                     addonsDemoProperties.getPassword(),
-                    "first@gmail.com",
+                    attributes,
                     Sets.newHashSet(FullAccessRole.CODE));
+
+            attributes.clear();
+            attributes.put("firstName", "second");
+            attributes.put("lastName", "testdata");
+            attributes.put("email", "second@gmail.com");
 
             createUser("second",
                     addonsDemoProperties.getPassword(),
-                    "second@gmail.com",
+                    attributes,
                     Sets.newHashSet(FullAccessRole.CODE));
+
+            attributes.clear();
+            attributes.put("firstName", "third");
+            attributes.put("lastName", "testdata");
+            attributes.put("email", "third@gmail.com");
 
             createUser("third",
                     addonsDemoProperties.getPassword(),
-                    "third@gmail.com",
+                    attributes,
                     Sets.newHashSet(FullAccessRole.CODE));
 
             return null;
@@ -117,10 +136,10 @@ public class StartupUsersCreator {
     }
 
     private void createUser(String username, String password, Set<String> resourceRoleCodes) {
-        createUser(username, password, null, resourceRoleCodes);
+        createUser(username, password, new HashMap<>(), resourceRoleCodes);
     }
 
-    private void createUser(String username, String password, String email, Set<String> resourceRoleCodes) {
+    private void createUser(String username, String password, Map<String, Object> attributes, Set<String> resourceRoleCodes) {
         User user = dataManager.load(User.class)
                 .condition(PropertyCondition.equal("username", username))
                 .optional()
@@ -131,7 +150,12 @@ public class StartupUsersCreator {
             newUser.setUsername(username);
             newUser.setPassword(password);
             newUser.setActive(true);
-            newUser.setEmail(email);
+
+
+            for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+                EntityValues.setValue(newUser, entry.getKey(), entry.getValue());
+            }
+
             saveContext.saving(newUser);
 
             for (String roleCode : resourceRoleCodes) {
