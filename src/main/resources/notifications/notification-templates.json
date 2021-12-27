@@ -1,0 +1,26 @@
+[
+  {
+    "name": "notification for user task",
+    "code": "defaultNotification",
+    "subjectTemplatePath": "notifications/default-subject-notification",
+    "bodyTemplatePath": "notifications/user-task-body-notification",
+    "channels": ["ui"],
+    "contentType": "plain"
+  },
+  {
+    "name": "notification for service task",
+    "code": "anotherNotification",
+    "subjectTemplatePath": "notifications/default-subject-notification",
+    "bodyTemplatePath": "notifications/service-task-body-notification",
+    "channels": ["ui"],
+    "contentType": "html"
+  },
+  {
+    "name": "notification error",
+    "code": "timerErrorNotification",
+    "subjectTemplatePath": "notifications/error-subject-notification",
+    "bodyTemplatePath": "notifications/timer-failed-notification",
+    "channels": ["ui"],
+    "contentType": "html"
+  }
+]

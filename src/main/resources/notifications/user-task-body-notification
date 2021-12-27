@@ -1,0 +1,1 @@
+Task ${context.taskName} was assigned on ${context.taskAssigneeUser.username}. Mentor: ${context.recipientUser.username}
