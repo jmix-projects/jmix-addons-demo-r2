@@ -6,7 +6,7 @@ plugins {
 apply plugin: 'org.springframework.boot'
 
 jmix {
-    bomVersion = '1.2.0-SNAPSHOT'
+    bomVersion = '1.2.0-S1'
 }
 
 group = 'com.company'
@@ -15,15 +15,15 @@ version = '0.0.1-SNAPSHOT'
 repositories {
     mavenCentral()
     maven {
-        url 'https://nexus.jmix.io/repository/public'
+        url 'https://nexus.jmix.io/repository/specr2-public'
     }
-    maven {
-        url 'https://nexus.jmix.io/repository/premium'
-        credentials {
-            username rootProject['premiumRepoUser']
-            password rootProject['premiumRepoPass']
-        }
-    }
+//    maven {
+//        url 'https://nexus.jmix.io/repository/premium'
+//        credentials {
+//            username rootProject['premiumRepoUser']
+//            password rootProject['premiumRepoPass']
+//        }
+//    }
 }
 
 dependencies {
