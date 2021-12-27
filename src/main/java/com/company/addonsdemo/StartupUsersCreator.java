@@ -77,7 +77,7 @@ public class StartupUsersCreator {
             createUser("first",
                     addonsDemoProperties.getPassword(),
                     attributes,
-                    Sets.newHashSet(FullAccessRole.CODE));
+                    Sets.newHashSet(UiMinimalRole.CODE));
 
             attributes.clear();
             attributes.put("firstName", "second");
@@ -87,7 +87,7 @@ public class StartupUsersCreator {
             createUser("second",
                     addonsDemoProperties.getPassword(),
                     attributes,
-                    Sets.newHashSet(FullAccessRole.CODE));
+                    Sets.newHashSet(UiMinimalRole.CODE, BpmProcessActorRole.CODE));
 
             attributes.clear();
             attributes.put("firstName", "third");
@@ -97,7 +97,7 @@ public class StartupUsersCreator {
             createUser("third",
                     addonsDemoProperties.getPassword(),
                     attributes,
-                    Sets.newHashSet(FullAccessRole.CODE));
+                    Sets.newHashSet(UiMinimalRole.CODE));
 
             return null;
         });
