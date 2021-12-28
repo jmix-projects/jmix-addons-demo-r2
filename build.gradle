@@ -6,7 +6,7 @@ plugins {
 apply plugin: 'org.springframework.boot'
 
 jmix {
-    bomVersion = '1.2.0-S1'
+    bomVersion = '1.2.0-S2'
 }
 
 group = 'com.company'
