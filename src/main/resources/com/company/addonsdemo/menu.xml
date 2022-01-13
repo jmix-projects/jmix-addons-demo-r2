@@ -6,6 +6,9 @@
         <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
         <item screen="TestNotificationApiScreen"
               caption="msg://com.company.addonsdemo.screen.testnotificationapi/testNotificationApiScreen.caption"/>
+        <item screen="ImportCalendar"
+              caption="msg://com.company.addonsdemo.screen.importcalendar/importCalendar.caption"/>
+        <item screen="BuscalApiScreen" caption="msg://com.company.addonsdemo.screen.buscalapi/buscalApiScreen.caption"/>
     </menu>
 
 </menu-config>

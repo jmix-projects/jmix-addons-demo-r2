@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://buscalApiScreen.caption">
+    <layout spacing="true" expand="actions">
+        <form>
+            <column width="350px">
+                <comboBox id="businessCalendarNameFieldId" caption="Business calendar"
+                          required="true"/>
+                <dateField id="currentDateTimeFieldId" caption="Date"
+                           datatype="localDateTime" required="true"/>
+                <textField id="timeAmountFieldId" caption="Amount of time"
+                           datatype="long" required="true"/>
+                <comboBox id="timeUnitFieldId" caption="Time unit" required="true"/>
+                <comboBox id="timeOperationFieldId" caption="Operation"
+                          required="true"/>
+                <label id="resultLabelId" htmlEnabled="true" visible="false"/>
+            </column>
+        </form>
+        <hbox id="actions" spacing="true">
+            <button id="calculate" icon="EDITOR_OK" caption="Calculate"/>
+            <button id="closeBtn" icon="BAN" caption="Close"/>
+        </hbox>
+    </layout>
+</window>

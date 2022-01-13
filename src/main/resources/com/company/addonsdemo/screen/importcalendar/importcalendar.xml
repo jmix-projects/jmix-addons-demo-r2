@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://importCalendar.caption">
+    <layout spacing="true" expand="actions">
+        <form>
+            <column width="350px">
+                <textField id="calendarNameFieldId" caption="msg://calendarName"
+                           required="true"/>
+                <textField id="calendarCodeFieldId" caption="msg://calendarCode"
+                           required="true"/>
+                <textField id="apiKeyFieldId" caption="msg://apiKey" required="true"/>
+                <textField id="yearFieldId" caption="msg://yearRequested"
+                           required="true"/>
+                <textField id="countryFieldId" caption="msg://country"
+                           required="true"/>
+            </column>
+        </form>
+        <hbox id="actions" spacing="true">
+            <button id="commitAndCloseBtn" icon="EDITOR_OK" caption="msg://ok"/>
+            <button id="closeBtn" icon="BAN" caption="msg://close"/>
+        </hbox>
+    </layout>
+</window>
