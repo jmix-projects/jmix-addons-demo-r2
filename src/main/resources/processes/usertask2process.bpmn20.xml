@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:jmix="http://jmix.io/schema/bpm/bpmn"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://www.flowable.org/processdef">
+    <process id="usertask2process" name="2 tasks process" isExecutable="true"
+             flowable:candidateStarterUsers="bpmadmin" jmix:candidateStarterUsersValue="bpmadmin">
+        <startEvent id="startEvent" name="start">
+            <extensionElements>
+                <jmix:formData type="input-dialog" openMode="DIALOG">
+                    <jmix:formFields>
+                        <jmix:formField id="duedate" caption="Due date" type="date" editable="true"
+                                        required="true" />
+                    </jmix:formFields>
+                </jmix:formData>
+            </extensionElements>
+            <outgoing>Flow_1fyypwt</outgoing>
+        </startEvent>
+        <sequenceFlow id="Flow_1fyypwt" sourceRef="startEvent" targetRef="review-task" />
+        <endEvent id="endEvent" name="finish">
+            <incoming>Flow_01bf9sf</incoming>
+            <incoming>Flow_0wklvf4</incoming>
+        </endEvent>
+        <sequenceFlow id="Flow_01bf9sf" sourceRef="sign-task" targetRef="endEvent" />
+        <userTask id="review-task" name="Review and add your comment"
+                  flowable:candidateUsers="taskuser" flowable:dueDate="${duedate}"
+                  jmix:candidateUsersValue="taskuser">
+            <extensionElements>
+                <jmix:formData type="input-dialog" openMode="DIALOG">
+                    <jmix:formFields>
+                        <jmix:formField id="comment" caption="Add your comment" type="string"
+                                        editable="true" required="false" />
+                    </jmix:formFields>
+                    <jmix:formOutcomes>
+                        <jmix:formOutcome id="approve" caption="Approve" icon="font-icon:CHECK" />
+                        <jmix:formOutcome id="reject" caption="Reject" icon="font-icon:BAN" />
+                    </jmix:formOutcomes>
+                </jmix:formData>
+            </extensionElements>
+            <incoming>Flow_1fyypwt</incoming>
+            <outgoing>Flow_1f8e0tb</outgoing>
+            <outgoing>Flow_0wklvf4</outgoing>
+        </userTask>
+        <userTask id="sign-task" name="Sign and close" flowable:candidateUsers="bpmuser"
+                  jmix:candidateUsersValue="bpmuser">
+            <extensionElements>
+                <jmix:formData type="input-dialog" openMode="DIALOG">
+                    <jmix:formFields>
+                        <jmix:formField id="comment" caption="Add your comment" type="string"
+                                        editable="true" required="false" />
+                    </jmix:formFields>
+                </jmix:formData>
+            </extensionElements>
+            <incoming>Flow_1f8e0tb</incoming>
+            <outgoing>Flow_01bf9sf</outgoing>
+        </userTask>
+        <sequenceFlow id="Flow_1f8e0tb" sourceRef="review-task" targetRef="sign-task">
+            <extensionElements>
+                <jmix:conditionDetails conditionSource="userTaskOutcome"
+                                       conditionType="anyoneCompleted" userTaskId="review-task" userTaskOutcome="approve" />
+            </extensionElements>
+            <conditionExpression
+                    xsi:type="tFormalExpression">${execution.getVariable('review-task_result') != null
+&amp;&amp; bpm_UserTaskResults.containsOutcome(execution.getVariable('review-
+task_result'), 'approve')}</conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id="Flow_0wklvf4" sourceRef="review-task" targetRef="endEvent">
+            <extensionElements>
+                <jmix:conditionDetails conditionSource="userTaskOutcome"
+                                       conditionType="anyoneCompleted" userTaskId="review-task" userTaskOutcome="reject" />
+            </extensionElements>
+            <conditionExpression
+                    xsi:type="tFormalExpression">${execution.getVariable('review-task_result') != null
+&amp;&amp; bpm_UserTaskResults.containsOutcome(execution.getVariable('review-
+task_result'), 'reject')}</conditionExpression>
+        </sequenceFlow>
+    </process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_process">
+        <bpmndi:BPMNPlane id="BPMNPlane_process" bpmnElement="usertask2process">
+            <bpmndi:BPMNEdge id="Flow_0wklvf4_di" bpmnElement="Flow_0wklvf4">
+                <omgdi:waypoint x="340" y="165" />
+                <omgdi:waypoint x="732" y="165" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1f8e0tb_di" bpmnElement="Flow_1f8e0tb">
+                <omgdi:waypoint x="290" y="205" />
+                <omgdi:waypoint x="290" y="280" />
+                <omgdi:waypoint x="530" y="280" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_01bf9sf_di" bpmnElement="Flow_01bf9sf">
+                <omgdi:waypoint x="630" y="280" />
+                <omgdi:waypoint x="681" y="280" />
+                <omgdi:waypoint x="681" y="165" />
+                <omgdi:waypoint x="732" y="165" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1fyypwt_di" bpmnElement="Flow_1fyypwt">
+                <omgdi:waypoint x="180" y="165" />
+                <omgdi:waypoint x="240" y="165" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent">
+                <omgdc:Bounds x="150" y="150" width="30" height="30" />
+                <bpmndi:BPMNLabel>
+                    <omgdc:Bounds x="154" y="187" width="23" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_0dphi09_di" bpmnElement="endEvent">
+                <omgdc:Bounds x="732" y="147" width="36" height="36" />
+
+                <bpmndi:BPMNLabel>
+                    <omgdc:Bounds x="737" y="190" width="26" height="14" />
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_065pi14_di" bpmnElement="review-task">
+                <omgdc:Bounds x="240" y="125" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_165ndd4_di" bpmnElement="sign-task">
+                <omgdc:Bounds x="530" y="240" width="100" height="80" />
+            </bpmndi:BPMNShape>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>

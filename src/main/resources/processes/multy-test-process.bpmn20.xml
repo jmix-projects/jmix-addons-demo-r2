@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:jmix="http://jmix.io/schema/bpm/bpmn" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.flowable.org/processdef">
+
+    <process id="multy-test-process" name="Multy Test Process" isExecutable="true">
+
+        <startEvent id="startEvent1">
+
+            <extensionElements>
+
+                <jmix:formData type="no-form" />
+
+            </extensionElements>
+
+            <outgoing>Flow_118qcoi</outgoing>
+
+        </startEvent>
+
+        <sequenceFlow id="Flow_118qcoi" sourceRef="startEvent1" targetRef="timer" />
+
+        <endEvent id="Event_1ipy03h">
+
+            <incoming>Flow_0p96fxc</incoming>
+
+        </endEvent>
+
+        <sequenceFlow id="Flow_0p96fxc" sourceRef="timer" targetRef="Event_1ipy03h" />
+
+        <intermediateCatchEvent id="timer">
+
+            <incoming>Flow_118qcoi</incoming>
+
+            <outgoing>Flow_0p96fxc</outgoing>
+
+            <timerEventDefinition id="TimerEventDefinition_0qoua4d">
+
+                <timeDuration xsi:type="tFormalExpression">PT2M</timeDuration>
+
+            </timerEventDefinition>
+
+        </intermediateCatchEvent>
+
+    </process>
+
+    <bpmndi:BPMNDiagram id="BPMNDiagram_process">
+
+        <bpmndi:BPMNPlane id="BPMNPlane_process" bpmnElement="multy-test-process">
+
+            <bpmndi:BPMNEdge id="Flow_0p96fxc_di" bpmnElement="Flow_0p96fxc">
+
+                <omgdi:waypoint x="268" y="170" />
+
+                <omgdi:waypoint x="322" y="170" />
+
+            </bpmndi:BPMNEdge>
+
+            <bpmndi:BPMNEdge id="Flow_118qcoi_di" bpmnElement="Flow_118qcoi">
+
+                <omgdi:waypoint x="180" y="170" />
+
+                <omgdi:waypoint x="232" y="170" />
+
+            </bpmndi:BPMNEdge>
+
+            <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent1">
+
+                <omgdc:Bounds x="150" y="155" width="30" height="30" />
+
+            </bpmndi:BPMNShape>
+
+            <bpmndi:BPMNShape id="Event_1ipy03h_di" bpmnElement="Event_1ipy03h">
+
+                <omgdc:Bounds x="322" y="152" width="36" height="36" />
+
+            </bpmndi:BPMNShape>
+
+            <bpmndi:BPMNShape id="Event_1h9p72f_di" bpmnElement="timer">
+
+                <omgdc:Bounds x="232" y="152" width="36" height="36" />
+
+            </bpmndi:BPMNShape>
+
+        </bpmndi:BPMNPlane>
+
+    </bpmndi:BPMNDiagram>
+
+</definitions>

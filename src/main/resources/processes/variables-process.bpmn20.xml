@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:jmix="http://jmix.io/schema/bpm/bpmn" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.flowable.org/processdef">
+    <process id="variables-process" name="Variables Process" isExecutable="true">
+        <startEvent id="startEvent1">
+            <extensionElements>
+                <jmix:formData type="input-dialog" openMode="DIALOG">
+                    <jmix:formFields>
+                        <jmix:formField id="user" caption="User" type="entity" editable="true" required="true">
+                            <jmix:formFieldProperty name="uiComponent" value="entityPicker" />
+                            <jmix:formFieldProperty name="entityName" value="demo_User" />
+                        </jmix:formField>
+                        <jmix:formField id="age" caption="Age" type="long" editable="true" required="false" />
+                        <jmix:formField id="date" caption="Date" type="date" editable="true" required="false" />
+                        <jmix:formField id="description" caption="Description" type="string" editable="true" required="false" />
+                    </jmix:formFields>
+                </jmix:formData>
+            </extensionElements>
+            <outgoing>Flow_0zovhgg</outgoing>
+        </startEvent>
+        <sequenceFlow id="Flow_0zovhgg" sourceRef="startEvent1" targetRef="Event_13iwblq" />
+        <endEvent id="Event_13iwblq">
+            <incoming>Flow_0zovhgg</incoming>
+        </endEvent>
+    </process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_process">
+        <bpmndi:BPMNPlane id="BPMNPlane_process" bpmnElement="variables-process">
+            <bpmndi:BPMNEdge id="Flow_0zovhgg_di" bpmnElement="Flow_0zovhgg">
+                <omgdi:waypoint x="180" y="165" />
+                <omgdi:waypoint x="242" y="165" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent1">
+                <omgdc:Bounds x="150" y="150" width="30" height="30" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_13iwblq_di" bpmnElement="Event_13iwblq">
+                <omgdc:Bounds x="242" y="147" width="36" height="36" />
+            </bpmndi:BPMNShape>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>

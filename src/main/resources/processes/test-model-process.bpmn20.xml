@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:jmix="http://jmix.io/schema/bpm/bpmn" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.flowable.org/processdef">
+
+    <process id="test-model-process" name="Test Model Process" isExecutable="true">
+
+        <startEvent id="start" name="Start">
+
+            <extensionElements>
+
+                <jmix:formData type="no-form" />
+
+            </extensionElements>
+
+            <outgoing>flow1</outgoing>
+
+        </startEvent>
+
+        <userTask id="user-model-task" name="Model Task" flowable:assignee="${initiator.username}" jmix:assigneeSource="processVariable" jmix:assigneeValue="initiator">
+
+            <extensionElements>
+
+                <jmix:formData type="no-form" />
+
+            </extensionElements>
+
+            <incoming>flow2</incoming>
+
+            <outgoing>flow3</outgoing>
+
+        </userTask>
+
+        <intermediateCatchEvent id="four-minutes-timer" name="Four Minutes Timer">
+
+            <incoming>flow1</incoming>
+
+            <outgoing>flow2</outgoing>
+
+            <timerEventDefinition id="TimerEventDefinition_11bmcu9">
+
+                <timeDuration xsi:type="tFormalExpression">PT4M</timeDuration>
+
+            </timerEventDefinition>
+
+        </intermediateCatchEvent>
+
+        <endEvent id="end" name="End">
+
+            <incoming>flow3</incoming>
+
+        </endEvent>
+
+        <sequenceFlow id="flow2" sourceRef="four-minutes-timer" targetRef="user-model-task">
+
+            <extensionElements>
+
+                <jmix:conditionDetails conditionSource="expression" />
+
+            </extensionElements>
+
+        </sequenceFlow>
+
+        <sequenceFlow id="flow3" sourceRef="user-model-task" targetRef="end">
+
+            <extensionElements>
+
+                <jmix:conditionDetails conditionSource="expression" />
+
+            </extensionElements>
+
+        </sequenceFlow>
+
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="four-minutes-timer">
+
+            <extensionElements>
+
+                <jmix:conditionDetails conditionSource="expression" />
+
+            </extensionElements>
+
+        </sequenceFlow>
+
+    </process>
+
+    <bpmndi:BPMNDiagram id="BPMNDiagram_process">
+
+        <bpmndi:BPMNPlane id="BPMNPlane_process" bpmnElement="test-model-process">
+
+            <bpmndi:BPMNEdge id="Flow_1cyr4h1_di" bpmnElement="flow1">
+
+                <omgdi:waypoint x="165" y="165" />
+
+                <omgdi:waypoint x="242" y="165" />
+
+            </bpmndi:BPMNEdge>
+
+            <bpmndi:BPMNEdge id="Flow_0tk5mf5_di" bpmnElement="flow3">
+
+                <omgdi:waypoint x="460" y="165" />
+
+                <omgdi:waypoint x="542" y="165" />
+
+            </bpmndi:BPMNEdge>
+
+            <bpmndi:BPMNEdge id="Flow_0g4ipx0_di" bpmnElement="flow2">
+
+                <omgdi:waypoint x="278" y="165" />
+
+                <omgdi:waypoint x="360" y="165" />
+
+            </bpmndi:BPMNEdge>
+
+            <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="start">
+
+                <omgdc:Bounds x="135" y="150" width="30" height="30" />
+
+                <bpmndi:BPMNLabel>
+
+                    <omgdc:Bounds x="138" y="187" width="24" height="14" />
+
+                </bpmndi:BPMNLabel>
+
+            </bpmndi:BPMNShape>
+
+            <bpmndi:BPMNShape id="Activity_0psj7c6_di" bpmnElement="user-model-task">
+
+                <omgdc:Bounds x="360" y="125" width="100" height="80" />
+
+            </bpmndi:BPMNShape>
+
+            <bpmndi:BPMNShape id="Event_14kwabp_di" bpmnElement="four-minutes-timer">
+
+                <omgdc:Bounds x="242" y="147" width="36" height="36" />
+
+                <bpmndi:BPMNLabel>
+
+                    <omgdc:Bounds x="228" y="110" width="65" height="27" />
+
+                </bpmndi:BPMNLabel>
+
+            </bpmndi:BPMNShape>
+
+            <bpmndi:BPMNShape id="Event_03tz5rf_di" bpmnElement="end">
+
+                <omgdc:Bounds x="542" y="147" width="36" height="36" />
+
+                <bpmndi:BPMNLabel>
+
+                    <omgdc:Bounds x="550" y="190" width="20" height="14" />
+
+                </bpmndi:BPMNLabel>
+
+            </bpmndi:BPMNShape>
+
+        </bpmndi:BPMNPlane>
+
+    </bpmndi:BPMNDiagram>
+
+</definitions>

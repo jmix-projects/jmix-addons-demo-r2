@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:jmix="http://jmix.io/schema/bpm/bpmn" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.flowable.org/processdef">
+
+    <process id="dmn-process" name="DMN Process" isExecutable="true">
+
+        <startEvent id="startEvent1">
+
+            <extensionElements>
+
+                <jmix:processVariables />
+
+                <jmix:formData type="input-dialog" openMode="DIALOG">
+
+                    <jmix:formFields>
+
+                        <jmix:formField id="count" caption="Count" type="long" editable="true" required="true" />
+
+                    </jmix:formFields>
+
+                </jmix:formData>
+
+            </extensionElements>
+
+            <outgoing>Flow_0e8iixm</outgoing>
+
+        </startEvent>
+
+        <sequenceFlow id="Flow_0e8iixm" sourceRef="startEvent1" targetRef="discount-calculate" />
+
+        <serviceTask id="discount-calculate" name="Discount Calculate" flowable:type="dmn">
+
+            <extensionElements>
+
+                <flowable:field name="decisionTableReferenceKey">
+
+                    <flowable:string>calculate_discount</flowable:string>
+
+                </flowable:field>
+
+            </extensionElements>
+
+            <incoming>Flow_0e8iixm</incoming>
+
+            <outgoing>Flow_18ohl6q</outgoing>
+
+        </serviceTask>
+
+        <endEvent id="Event_1kr6ure">
+
+            <incoming>Flow_18ohl6q</incoming>
+
+        </endEvent>
+
+        <sequenceFlow id="Flow_18ohl6q" sourceRef="discount-calculate" targetRef="Event_1kr6ure" />
+
+    </process>
+
+    <bpmndi:BPMNDiagram id="BPMNDiagram_process">
+
+        <bpmndi:BPMNPlane id="BPMNPlane_process" bpmnElement="dmn-process">
+
+            <bpmndi:BPMNEdge id="Flow_18ohl6q_di" bpmnElement="Flow_18ohl6q">
+
+                <omgdi:waypoint x="330" y="165" />
+
+                <omgdi:waypoint x="382" y="165" />
+
+            </bpmndi:BPMNEdge>
+
+            <bpmndi:BPMNEdge id="Flow_0e8iixm_di" bpmnElement="Flow_0e8iixm">
+
+                <omgdi:waypoint x="180" y="165" />
+
+                <omgdi:waypoint x="230" y="165" />
+
+            </bpmndi:BPMNEdge>
+
+            <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent1">
+
+                <omgdc:Bounds x="150" y="150" width="30" height="30" />
+
+            </bpmndi:BPMNShape>
+
+            <bpmndi:BPMNShape id="Activity_08lz0wn_di" bpmnElement="discount-calculate">
+
+                <omgdc:Bounds x="230" y="125" width="100" height="80" />
+
+            </bpmndi:BPMNShape>
+
+            <bpmndi:BPMNShape id="Event_1kr6ure_di" bpmnElement="Event_1kr6ure">
+
+                <omgdc:Bounds x="382" y="147" width="36" height="36" />
+
+            </bpmndi:BPMNShape>
+
+        </bpmndi:BPMNPlane>
+
+    </bpmndi:BPMNDiagram>
+
+</definitions>

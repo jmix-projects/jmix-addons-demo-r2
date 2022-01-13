@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:jmix="http://jmix.io/schema/bpm/bpmn" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.flowable.org/processdef">
+    <process id="error-process" name="Error Process" isExecutable="true">
+        <startEvent id="startEvent">
+            <extensionElements>
+                <jmix:formData type="input-dialog" openMode="DIALOG" />
+            </extensionElements>
+            <outgoing>Flow_1gvl1po</outgoing>
+        </startEvent>
+        <sequenceFlow id="Flow_1gvl1po" sourceRef="startEvent" targetRef="error-generate" />
+        <userTask id="close_error_process" name="Close Error Process" flowable:assignee="${initiator.username}" jmix:assigneeSource="processVariable" jmix:assigneeValue="initiator">
+            <extensionElements>
+                <jmix:formData type="no-form" />
+            </extensionElements>
+            <incoming>Flow_0fjux2g</incoming>
+            <outgoing>Flow_0im4his</outgoing>
+        </userTask>
+        <endEvent id="Event_1fcysyn">
+            <incoming>Flow_0im4his</incoming>
+        </endEvent>
+        <sequenceFlow id="Flow_0im4his" sourceRef="close_error_process" targetRef="Event_1fcysyn" />
+        <sequenceFlow id="Flow_0fjux2g" sourceRef="error-generate" targetRef="close_error_process" />
+        <serviceTask id="error-generate" name="Error Generate" flowable:async="true" flowable:expression="${demo_ThrowsErrorBean.throwError()}" jmix:taskType="springBean" jmix:beanName="demo_ThrowsErrorBean">
+            <extensionElements>
+                <jmix:springBean beanName="demo_ThrowsErrorBean" methodName="throwError" />
+            </extensionElements>
+            <incoming>Flow_1gvl1po</incoming>
+            <outgoing>Flow_0fjux2g</outgoing>
+        </serviceTask>
+    </process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_process">
+        <bpmndi:BPMNPlane id="BPMNPlane_process" bpmnElement="error-process">
+            <bpmndi:BPMNEdge id="Flow_0fjux2g_di" bpmnElement="Flow_0fjux2g">
+                <omgdi:waypoint x="320" y="165" />
+                <omgdi:waypoint x="380" y="165" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0im4his_di" bpmnElement="Flow_0im4his">
+                <omgdi:waypoint x="480" y="165" />
+                <omgdi:waypoint x="532" y="165" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1gvl1po_di" bpmnElement="Flow_1gvl1po">
+                <omgdi:waypoint x="180" y="165" />
+                <omgdi:waypoint x="220" y="165" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent">
+                <omgdc:Bounds x="150" y="150" width="30" height="30" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_0kaqlpy_di" bpmnElement="close_error_process">
+                <omgdc:Bounds x="380" y="125" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_1fcysyn_di" bpmnElement="Event_1fcysyn">
+                <omgdc:Bounds x="532" y="147" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1yye5z1_di" bpmnElement="error-generate">
+                <omgdc:Bounds x="220" y="125" width="100" height="80" />
+            </bpmndi:BPMNShape>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>

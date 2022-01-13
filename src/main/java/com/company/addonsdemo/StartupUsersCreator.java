@@ -10,6 +10,7 @@ import io.jmix.core.UnconstrainedDataManager;
 import io.jmix.core.entity.EntityValues;
 import io.jmix.core.querycondition.PropertyCondition;
 import io.jmix.core.security.SystemAuthenticator;
+import io.jmix.notificationsui.role.NotificationsAdminAccessRole;
 import io.jmix.security.role.assignment.RoleAssignmentRoleType;
 import io.jmix.securitydata.entity.RoleAssignmentEntity;
 import io.jmix.securityui.role.UiFilterRole;
@@ -97,7 +98,20 @@ public class StartupUsersCreator {
             createUser("third",
                     addonsDemoProperties.getPassword(),
                     attributes,
-                    Sets.newHashSet(UiMinimalRole.CODE));
+                    Sets.newHashSet(FullAccessRole.CODE, BpmProcessActorRole.CODE));
+
+            attributes.clear();
+            createUser("notification_admin",
+                    addonsDemoProperties.getPassword(),
+                    attributes,
+                    Sets.newHashSet(FullAccessRole.CODE));
+
+            attributes.clear();
+            createUser("notification_user",
+                    addonsDemoProperties.getPassword(),
+                    attributes,
+                    Sets.newHashSet(UiMinimalRole.CODE, "notifications-administrator", "notifications-ui-notifications-user",
+                            BpmProcessActorRole.CODE, BpmAdminRole.CODE));
 
             return null;
         });

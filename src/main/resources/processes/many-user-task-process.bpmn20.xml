@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:jmix="http://jmix.io/schema/bpm/bpmn" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.flowable.org/processdef">
+    <process id="many-user-task-process" name="Many User Task Process" isExecutable="true">
+        <startEvent id="startEvent1">
+            <extensionElements>
+                <jmix:formData type="input-dialog" openMode="DIALOG">
+                    <jmix:formFields>
+                        <jmix:formField id="user" caption="User" type="entity" editable="true" required="false">
+                            <jmix:formFieldProperty name="uiComponent" value="entityPicker" />
+                            <jmix:formFieldProperty name="entityName" value="demo_User" />
+                        </jmix:formField>
+                    </jmix:formFields>
+                </jmix:formData>
+            </extensionElements>
+            <outgoing>Flow_1i1jgoh</outgoing>
+            <outgoing>Flow_0v0k3uj</outgoing>
+        </startEvent>
+        <userTask id="initiator-task" name="Initiator Task" flowable:assignee="${initiator.username}" flowable:dueDate="2022-01-01" jmix:assigneeSource="processVariable" jmix:assigneeValue="initiator">
+            <extensionElements>
+                <jmix:formData type="no-form" />
+            </extensionElements>
+            <incoming>Flow_1i1jgoh</incoming>
+            <outgoing>Flow_07bc9qa</outgoing>
+        </userTask>
+        <endEvent id="Event_00fai9z">
+            <incoming>Flow_07bc9qa</incoming>
+        </endEvent>
+        <sequenceFlow id="Flow_07bc9qa" sourceRef="initiator-task" targetRef="Event_00fai9z" />
+        <userTask id="user-variable-task" name="User Variable Task" flowable:assignee="${user.username}" flowable:dueDate="2022-02-02" jmix:assigneeSource="processVariable" jmix:assigneeValue="user">
+            <extensionElements>
+                <jmix:formData type="no-form" />
+            </extensionElements>
+            <incoming>Flow_0v0k3uj</incoming>
+            <outgoing>Flow_1ye1csl</outgoing>
+        </userTask>
+        <endEvent id="Event_0nwfoy0">
+            <incoming>Flow_1ye1csl</incoming>
+        </endEvent>
+        <sequenceFlow id="Flow_1ye1csl" sourceRef="user-variable-task" targetRef="Event_0nwfoy0" />
+        <sequenceFlow id="Flow_1i1jgoh" sourceRef="startEvent1" targetRef="initiator-task" />
+        <sequenceFlow id="Flow_0v0k3uj" sourceRef="startEvent1" targetRef="user-variable-task" />
+    </process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_process">
+        <bpmndi:BPMNPlane id="BPMNPlane_process" bpmnElement="many-user-task-process">
+            <bpmndi:BPMNEdge id="Flow_0v0k3uj_di" bpmnElement="Flow_0v0k3uj">
+                <omgdi:waypoint x="180" y="165" />
+                <omgdi:waypoint x="260" y="165" />
+                <omgdi:waypoint x="260" y="280" />
+                <omgdi:waypoint x="340" y="280" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1i1jgoh_di" bpmnElement="Flow_1i1jgoh">
+                <omgdi:waypoint x="180" y="165" />
+                <omgdi:waypoint x="340" y="165" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1ye1csl_di" bpmnElement="Flow_1ye1csl">
+                <omgdi:waypoint x="440" y="280" />
+                <omgdi:waypoint x="502" y="280" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_07bc9qa_di" bpmnElement="Flow_07bc9qa">
+                <omgdi:waypoint x="440" y="165" />
+                <omgdi:waypoint x="502" y="165" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNShape id="BPMNShape_startEvent1" bpmnElement="startEvent1">
+                <omgdc:Bounds x="150" y="150" width="30" height="30" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_03uqxjq_di" bpmnElement="initiator-task">
+                <omgdc:Bounds x="340" y="125" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_00fai9z_di" bpmnElement="Event_00fai9z">
+                <omgdc:Bounds x="502" y="147" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_0a64js5_di" bpmnElement="user-variable-task">
+                <omgdc:Bounds x="340" y="240" width="100" height="80" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_0nwfoy0_di" bpmnElement="Event_0nwfoy0">
+                <omgdc:Bounds x="502" y="262" width="36" height="36" />
+            </bpmndi:BPMNShape>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>
