@@ -46,6 +46,8 @@ dependencies {
     implementation 'io.jmix.businesscalendar:jmix-businesscalendar-starter'
     implementation 'io.jmix.businesscalendar:jmix-businesscalendar-ui-starter'
 
+    implementation("com.sun.jersey:jersey-client:1.19.1")
+
     implementation 'org.springframework.boot:spring-boot-starter-quartz'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'

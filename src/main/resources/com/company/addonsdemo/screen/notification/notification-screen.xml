@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        focusComponent="uiNotificationsTable" caption="Notifications">
+    <data readOnly="true">
+        <collection id="uiNotificationsDc"
+                    class="io.jmix.notifications.entity.UiNotification">
+            <fetchPlan extends="_instance_name">
+                <property name="type"/>
+                <property name="recipient"/>
+                <property name="readStatus"/>
+            </fetchPlan>
+            <loader id="uiNotificationsDl">
+                <query>
+                    <![CDATA[select e from ntf_UiNotification e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="uiNotificationsTable" spacing="true">
+        <filter id="filter"
+                dataLoader="uiNotificationsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="uiNotificationsTable"
+                    width="100%"
+                    dataContainer="uiNotificationsDc">
+            <columns>
+                <column id="type"/>
+                <column id="subject"/>
+                <column id="recipient"/>
+                <column id="readStatus"/>
+            </columns>
+            <simplePagination/>
+        </groupTable>
+    </layout>
+</window>

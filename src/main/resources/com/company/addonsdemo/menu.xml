@@ -4,6 +4,8 @@
     <menu id="application" caption="msg://com.company.addonsdemo/menu.application" insertBefore="administration">
         <item screen="User.browse" caption="msg://com.company.addonsdemo.screen.user/UserBrowse.caption"/>
         <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
+        <item screen="TestNotificationApiScreen"
+              caption="msg://com.company.addonsdemo.screen.testnotificationapi/testNotificationApiScreen.caption"/>
     </menu>
 
 </menu-config>

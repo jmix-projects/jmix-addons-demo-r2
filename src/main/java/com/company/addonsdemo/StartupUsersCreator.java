@@ -2,6 +2,7 @@ package com.company.addonsdemo;
 
 import com.company.addonsdemo.entity.User;
 import com.company.addonsdemo.security.FullAccessRole;
+import com.company.addonsdemo.security.NotificationAPIScreenRole;
 import com.google.common.collect.Sets;
 import io.jmix.bpmui.security.role.BpmAdminRole;
 import io.jmix.bpmui.security.role.BpmProcessActorRole;
@@ -10,6 +11,7 @@ import io.jmix.core.UnconstrainedDataManager;
 import io.jmix.core.entity.EntityValues;
 import io.jmix.core.querycondition.PropertyCondition;
 import io.jmix.core.security.SystemAuthenticator;
+import io.jmix.emailui.role.EmailHistoryRole;
 import io.jmix.notificationsui.role.NotificationsAdminAccessRole;
 import io.jmix.security.role.assignment.RoleAssignmentRoleType;
 import io.jmix.securitydata.entity.RoleAssignmentEntity;
@@ -107,11 +109,13 @@ public class StartupUsersCreator {
                     Sets.newHashSet(FullAccessRole.CODE));
 
             attributes.clear();
+            attributes.put("email", "platformtest2@haulmont.dev");
             createUser("notification_user",
                     addonsDemoProperties.getPassword(),
                     attributes,
                     Sets.newHashSet(UiMinimalRole.CODE, "notifications-administrator", "notifications-ui-notifications-user",
-                            BpmProcessActorRole.CODE, BpmAdminRole.CODE));
+                            NotificationAPIScreenRole.CODE,
+                            BpmProcessActorRole.CODE, BpmAdminRole.CODE, EmailHistoryRole.CODE));
 
             return null;
         });

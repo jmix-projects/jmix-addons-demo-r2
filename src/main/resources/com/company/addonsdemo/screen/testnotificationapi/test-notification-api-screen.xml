@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://testNotificationApiScreen.caption">
+    <layout>
+        <button id="send" caption="Send UI notification"/>
+        <button id="show" caption="Show UI notification"/>
+    </layout>
+</window>
