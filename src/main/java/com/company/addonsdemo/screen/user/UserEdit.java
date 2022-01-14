@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.TimeZone;
 
-@UiController("User.edit")
+@UiController("demo_User.edit")
 @UiDescriptor("user-edit.xml")
 @EditedEntityContainer("userDc")
 @Route(value = "users/edit", parentPrefix = "users")
