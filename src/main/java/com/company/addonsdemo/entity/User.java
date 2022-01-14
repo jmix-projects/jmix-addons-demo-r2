@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.UUID;
 
 @JmixEntity
-@Entity
+@Entity(name = "demo_User")
 @Table(name = "USER_", indexes = {
         @Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true)
 })
